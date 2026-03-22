@@ -4,41 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciamento de Frota</title>
+    <title>🚗 Sistema de Veículos</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
     <div class="container">
         <header>
-            <h1>Sistema de Gestão de Veículos</h1>
+            <h1>🚗 Sistema de Veículos</h1>
         </header>
 
         <div class="form-container">
-            <h2>Cadastrar / Editar Veículo</h2>
-            
+            <h2 style="grid-column: 1/-1; margin-bottom: 10px;">Cadastrar Veículo</h2>
             <input type="text" id="marcaInput" placeholder="Marca (ex: Toyota)">
             <input type="text" id="modeloInput" placeholder="Modelo (ex: Corolla)">
-            <input type="number" id="anoInput" placeholder="Ano de Fabricação">
+            <input type="number" id="anoInput" placeholder="Ano">
             <input type="text" id="corInput" placeholder="Cor">
+            <input type="number" id="precoInput" placeholder="Preço (ex: 80000)">
             <input type="number" id="kmInput" placeholder="Quilometragem">
-            <input type="number" id="precoInput" placeholder="Preço (R$)">
-            <input type="number" id="estoqueInput" placeholder="Quantidade em Estoque">
-            
-            <select id="statusInput">
-                <option value="" disabled selected>Status do Veículo</option>
-                <option value="Disponível">Disponível</option>
-                <option value="Vendido">Vendido</option>
-                <option value="Manutenção">Manutenção</option>
-            </select>
-
-            <button onclick="addVeiculo()">Adicionar Veículo</button>
+            <input type="number" id="estoqueInput" placeholder="Qtd. em Estoque">
+            <button onclick="addVeiculo()">Cadastrar</button>
         </div>
 
-        <hr>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Pesquisar marca, modelo, cor ou status...">
+            <button onclick="filterAvailable()" class="btn-filter">Somente Disponíveis</button>
+            <button onclick="clearSearch()" class="btn-clear">Limpar</button>
+        </div>
 
-        <section id="cardContainer" class="card-container">
-            </section>
+        <section id="cardContainer"></section>
     </div>
 
     <script src="./js/script.js"></script>
