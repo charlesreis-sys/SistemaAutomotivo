@@ -3,9 +3,6 @@ const mainButton = document.querySelector('.form-container button');
 
 let veiculos = [];
 
-/* ===============================
-   CARREGAR VEÍCULOS (GET)
-=================================*/
 async function loadCards() {
     try {
         const response = await fetch('http://localhost:8080/api/veiculos/listarVeiculos');
@@ -17,9 +14,6 @@ async function loadCards() {
     }
 }
 
-/* ===============================
-   RENDERIZAR CARDS COM TODAS AS INFO
-=================================*/
 function renderCards() {
     cardContainer.innerHTML = "";
 
@@ -27,7 +21,6 @@ function renderCards() {
         const card = document.createElement('div');
         card.className = "card";
 
-        // Exibindo TODOS os atributos do modelo Java
         card.innerHTML = `
             <div class="card-header">
                 <h3>${veiculo.marca} ${veiculo.modelo}</h3>
@@ -50,13 +43,9 @@ function renderCards() {
     });
 }
 
-/* ===============================
-   ADICIONAR NOVO VEÍCULO (POST)
-=================================*/
 async function addVeiculo() {
     const data = getFormData();
 
-    // Validação básica
     if (!data.marca || !data.modelo) {
         alert("Marca e Modelo são obrigatórios!");
         return;
@@ -83,16 +72,12 @@ async function addVeiculo() {
     }
 }
 
-/* ===============================
-   EDITAR VEÍCULO (PUT)
-=================================*/
 function prepararEdicao(id) {
     const veiculo = veiculos.find(v => v.id === id);
     if (!veiculo) return;
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Preenche os inputs
     document.getElementById('marcaInput').value = veiculo.marca;
     document.getElementById('modeloInput').value = veiculo.modelo;
     document.getElementById('anoInput').value = veiculo.anoFabricacao;
@@ -102,7 +87,6 @@ function prepararEdicao(id) {
     document.getElementById('estoqueInput').value = veiculo.quantidadeEstoque;
     document.getElementById('statusInput').value = veiculo.status;
 
-    // Transforma o botão em "Salvar"
     mainButton.textContent = "Salvar Alterações";
     mainButton.onclick = () => saveEdit(id);
     mainButton.classList.add('editing');
@@ -126,9 +110,6 @@ async function saveEdit(id) {
     }
 }
 
-/* ===============================
-   DELETAR VEÍCULO (DELETE)
-=================================*/
 async function deleteVeiculo(id) {
     if (!confirm("Tem certeza que deseja excluir este veículo?")) return;
     try {
@@ -141,9 +122,6 @@ async function deleteVeiculo(id) {
     }
 }
 
-/* ===============================
-   UTILITÁRIOS
-=================================*/
 function getFormData() {
     return {
         marca: document.getElementById('marcaInput').value,
@@ -164,12 +142,10 @@ function clearForm() {
         if(el) el.value = "";
     });
     
-    // Reseta o botão para o estado inicial de cadastro
     mainButton.textContent = "Adicionar Veículo";
     mainButton.onclick = addVeiculo;
     mainButton.classList.remove('editing');
 }
 
-// Inicialização obrigatória: garante que o botão comece salvando novos
 mainButton.onclick = addVeiculo;
 loadCards();
